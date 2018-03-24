@@ -14,23 +14,34 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
+Plugin 'jiangmiao/auto-pairs'
 
 call vundle#end()
 filetype plugin indent on
 
+"Syntax highlighting
 let python_highlight_all=1
 syntax on
 
+"Folding
 set foldmethod=indent
 set foldlevel=99
 set encoding=utf-8
 set nu
 set clipboard=unnamed
 
+let g:SimpylFold_docstring_preview=1
+
+let g:ycm_python_binary_path = 'python'
+let g:ycm_autoclose_preview_window_after_completion=1
+
+"Mappings
 nnoremap <space><space> za
 nnoremap <CR> G
 nnoremap <space>fs :w<CR>
@@ -41,11 +52,7 @@ nnoremap <space>t :NERDTreeToggle<CR>
 map <f5> :lclose<CR>
 map <f4> :lopen<CR>
 
-let g:SimpylFold_docstring_preview=1
-
-let g:ycm_python_binary_path = 'python'
-let g:ycm_autoclose_preview_window_after_completion=1
-
+"Python specific
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -55,6 +62,7 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix |
 
+"Web specific
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2 |
     \ set softtabstop=2 |
@@ -72,7 +80,7 @@ else
 	let &t_EI = "\e[2 q"
 endif
 
-"python with virtualenv support
+"Python with virtualenv support
 py << EOF
 import os
 import sys
@@ -82,14 +90,25 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-
+"NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+let g:NERDTreeDirArrowExpandable = '~'
+let g:NERDTreeDirArrowCollapsible = '*'
+
+"StatusLine
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+"Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+"Gitgutter
+set updatetime=100
