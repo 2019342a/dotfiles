@@ -21,6 +21,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'leafgarland/typescript-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -44,10 +45,20 @@ let g:ycm_autoclose_preview_window_after_completion=1
 "Mappings
 nnoremap <space><space> za
 nnoremap <CR> G
-nnoremap <space>fs :w<CR>
-nnoremap <space>fq :q<CR>
 nnoremap <space>mg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <space>t :NERDTreeToggle<CR>
+
+nnoremap <space>fs :w<CR>
+nnoremap <space>fq :q<CR>
+
+nnoremap <space>ee $
+nnoremap <space>ea A
+nnoremap <space>eb _
+nnoremap <space>er R
+nnoremap <space>l <C-w>l
+nnoremap <space>k <C-w>k
+nnoremap <space>j <C-w>j
+nnoremap <space>h <C-w>h
 
 map <f5> :lclose<CR>
 map <f4> :lopen<CR>
@@ -63,10 +74,8 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix |
 
 "Web specific
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
+au BufNewFile,BufRead *.js,*.html,*.css,*.ts
+    \ set tabstop=2 softtabstop=2 shiftwidth=2
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 
@@ -112,3 +121,6 @@ let g:syntastic_check_on_wq = 0
 
 "Gitgutter
 set updatetime=100
+
+"Typescript
+let g:typescript_indent_disable = 1
