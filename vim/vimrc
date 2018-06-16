@@ -9,7 +9,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'jnurmine/Zenburn'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Valloric/YouCompleteMe'
@@ -18,6 +17,9 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'morhetz/gruvbox'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -49,6 +51,7 @@ nnoremap <space>ee $
 nnoremap <space>ea A
 nnoremap <space>eb _
 nnoremap <space>er R
+nnoremap <space>ey y$
 nnoremap <space>l <C-w>l
 nnoremap <space>k <C-w>k
 nnoremap <space>j <C-w>j
@@ -69,7 +72,10 @@ au BufNewFile,BufRead *.py
 
 "Web specific
 au BufNewFile,BufRead *.js,*.html,*.css,*.ts
-    \ set tabstop=2 softtabstop=2 shiftwidth=2
+    \ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
+
+"Coffescript
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 
@@ -123,3 +129,14 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 "Ctrl-P
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+"Theme
+colorscheme gruvbox
+
+"Searching
+set ignorecase
+set smartcase
+set incsearch
+
+"Emmet
+let g:user_emmet_leader_key='<C-C>'
