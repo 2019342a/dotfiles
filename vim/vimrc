@@ -17,9 +17,11 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'morhetz/gruvbox'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim'
+Plugin 'google/vim-searchindex'
+Plugin 'zefei/vim-wintabs'
+Plugin 'arcticicestudio/nord-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -60,6 +62,9 @@ nnoremap <space>h <C-w>h
 map <f5> :lclose<CR>
 map <f4> :lopen<CR>
 
+map <space><tab> :WintabsNext<CR>
+map<space>q :WintabsClose<CR>
+
 "Python specific
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -70,8 +75,11 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix |
 
+"Javascript specific
+ au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+
 "Web specific
-au BufNewFile,BufRead *.js,*.html,*.css,*.ts
+au BufNewFile,BufRead *.html,*.css,*.ts
     \ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
 
 "Coffescript
@@ -130,9 +138,6 @@ let g:ycm_autoclose_preview_window_after_completion=1
 "Ctrl-P
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-"Theme
-colorscheme gruvbox
-
 "Searching
 set ignorecase
 set smartcase
@@ -140,3 +145,6 @@ set incsearch
 
 "Emmet
 let g:user_emmet_leader_key='<C-C>'
+
+" Theme
+colorscheme nord
