@@ -1,111 +1,44 @@
-"Vundle configurations
-set nocompatible
-filetype off
+" =============================================================================
+" Who: Theofilos Alexiou (@2019342a)
+" Description:  Z-01/DF
+" Version: 2.0.0
+" =============================================================================
 
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
+Plug 'tmhedberg/SimpylFold'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'dense-analysis/ale'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'kchmck/vim-coffee-script'
+Plug 'mattn/emmet-vim'
+Plug 'google/vim-searchindex'
+Plug 'zefei/vim-wintabs'
+Plug 'Valloric/YouCompleteMe'
+Plug 'mhinz/vim-startify'
+Plug 'ryanoasis/vim-devicons'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mhinz/vim-signify'
+Plug 'arcticicestudio/nord-vim'
+Plug 'liuchengxu/vim-which-key'
+call plug#end()
 
-call vundle#begin()
+"ALE
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
+let g:ale_python_flake8_options = "--ignore=E501"
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'kien/ctrlp.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mattn/emmet-vim'
-Plugin 'google/vim-searchindex'
-Plugin 'zefei/vim-wintabs'
-Plugin 'arcticicestudio/nord-vim'
+"Ctrl-P
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-call vundle#end()
-filetype plugin indent on
+"Emmet
+let g:user_emmet_leader_key='<C-C>'
 
-"Syntax highlighting
-let python_highlight_all=1
-syntax on
-
-"Folding
-set foldmethod=indent
-set foldlevel=99
-set encoding=utf-8
-set nu
-set clipboard=unnamed
-
-let g:SimpylFold_docstring_preview=1
-
-
-"Mappings
-nnoremap <space><space> za
-nnoremap <CR> G
-nnoremap <space>mg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <space>t :NERDTreeToggle<CR>
-
-nnoremap <space>fs :w<CR>
-nnoremap <space>fq :q<CR>
-
-nnoremap <space>ee $
-nnoremap <space>ea A
-nnoremap <space>eb _
-nnoremap <space>er R
-nnoremap <space>ey y$
-nnoremap <space>l <C-w>l
-nnoremap <space>k <C-w>k
-nnoremap <space>j <C-w>j
-nnoremap <space>h <C-w>h
-
-map <f5> :lclose<CR>
-map <f4> :lopen<CR>
-
-map <space><tab> :WintabsNext<CR>
-map<space>q :WintabsClose<CR>
-
-"Python specific
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=99 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
-
-"Javascript specific
- au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
-
-"Web specific
-au BufNewFile,BufRead *.html,*.css,*.ts
-    \ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent
-
-"Coffescript
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
-
-highlight BadWhitespace ctermbg=red guibg=darkred
-
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-if exists('$TMUX')
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-else
-	let &t_SI = "\e[5 q"
-	let &t_EI = "\e[2 q"
-endif
-
-"Python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+"YouCompleteMe
+let g:ycm_python_binary_path = 'python'
+let g:ycm_autoclose_preview_window_after_completion=1
 
 "NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
@@ -113,38 +46,139 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-let g:NERDTreeDirArrowExpandable = '~'
-let g:NERDTreeDirArrowCollapsible = '*'
+let g:NERDTreeDirArrowExpandable = " "
+let g:NERDTreeDirArrowCollapsible = " "
 
-"StatusLine
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"AirLine
+let g:airline_theme='nord'
 
-"Syntastic
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_flake8_post_args='--ignore=E501'
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = "\ue0c8"
+let g:airline_right_sep = "\ue0b6"
 
-"Gitgutter
-set updatetime=100
+"Startify
+let g:startify_lists = [
+	\ { 'header': ['Last used'], 'type': 'files' },
+	\ { 'type': 'sessions',  'header': ['Sessions'] },
+	\ { 'type': 'bookmarks', 'header': ['Bookmarks'] },
+	\]
 
-"YouCompleteMe
-let g:ycm_python_binary_path = 'python'
-let g:ycm_autoclose_preview_window_after_completion=1
+let g:startify_bookmarks = [ {'v': '~/.vimrc'}, {'z': '~/.zshrc'}, {'t': '~/.tmux.conf'} ]
+let g:startify_fortune_use_unicode = 1
 
-"Ctrl-P
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ascii = [
+ 	\" _____                 _    _              _____                   _____                          _    _____         _____                                        ",
+	\"|     | ___  ___  ___ | |_ |_| ___  ___   |   __| _ _  ___  ___   |     | ___  _ _ _  ___  ___  _| |  |_   _| ___   |_   _| ___  _____  ___  ___  ___  ___  _ _ _ ",
+	\"| | | || .'||  _||  _||   || ||   || . |  |   __|| | || -_||  _|  |  |  ||   || | | || .'||  _|| . |    | |  | . |    | |  | . ||     || . ||  _||  _|| . || | | |",
+	\"|_|_|_||__,||_|  |___||_|_||_||_|_||_  |  |_____| \\_/ |___||_|    |_____||_|_||_____||__,||_|  |___|    |_|  |___|    |_|  |___||_|_|_||___||_|  |_|  |___||_____|",
+	\"                                   |___|                                                                                                                          ",
+	\]
+
+let g:startify_custom_footer = [
+	\"  ____    __  _",
+	\" |_  /__ /  \\/ |",
+	\"  / /___| () | |",
+	\" /___|   \\__/|_|",
+	\]
+
+let g:startify_custom_header = g:ascii + startify#fortune#boxed()
+
+"SimpylFold
+let g:SimpylFold_docstring_preview=1
+
+"Syntax highlighting
+let python_highlight_all=1
+syntax enable
 
 "Searching
 set ignorecase
 set smartcase
 set incsearch
 
-"Emmet
-let g:user_emmet_leader_key='<C-C>'
+"Folding
+set foldmethod=indent
+set foldlevel=0
+set clipboard=unnamed
 
-" Theme
+"Basic Mappings
+let mapleader = " "
+nnoremap <leader><leader> za
+nnoremap <CR> G
+
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>fq :q<CR>
+
+nnoremap <leader>ee $
+nnoremap <leader>ea A
+nnoremap <leader>eb _
+
+nnoremap <leader>l <C-w>l
+nnoremap <leader>k <C-w>k
+nnoremap <leader>j <C-w>j
+nnoremap <leader>h <C-w>h
+
+"Plugin Mappings
+noremap <leader>bn :WintabsNext<CR>
+noremap <leader>bp :WintabsPrevious<CR>
+noremap <leader>q :WintabsClose<CR>
+noremap <leader><Tab> :WintabsNext<CR>
+
+nnoremap <leader>mg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>mt :YcmCompleter GetType<CR>
+nnoremap <leader>md :YcmCompleter GetDoc<CR>
+
+nnoremap <leader>t :NERDTreeToggle<CR>
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<leader>'<CR>
+
+"Python specific
+au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=99 expandtab autoindent fileformat=unix
+
+"Javascript specific
+ au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+
+"Web specific
+au BufNewFile,BufRead *.html,*.csss set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=140 expandtab autoindent
+
+"Coffescript
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+"Tmux
+if empty('$TMUX')
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+endif
+
+"Python with virtualenv support
+py3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  exec(compile(open(activate_this, "rb").read(), activate_this, 'exec'), dict(__file__=activate_this))
+EOF
+
+"StatusLine
+set statusline+=%#warningmsg#
+set statusline+=%*
+
+"Visual
+set termguicolors
 colorscheme nord
+set colorcolumn=100
+set nu
+set noshowmode
+
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+"Other
+set encoding=utf-8
+set backspace=2
