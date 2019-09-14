@@ -1,7 +1,7 @@
 " =============================================================================
 " Who: Theofilos Alexiou (@2019342a)
 " Description:  Z-01/DF
-" Version: 2.0.1
+" Version: 2.0.2
 " =============================================================================
 
 call plug#begin('~/.vim/plugged')
@@ -139,7 +139,7 @@ au BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwid
 au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
 "Web specific
-au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+au BufNewFile,BufRead *.html,*.csss setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=140 expandtab autoindent foldlevel=99
 
 "Coffescript
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
