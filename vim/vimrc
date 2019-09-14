@@ -1,7 +1,7 @@
 " =============================================================================
 " Who: Theofilos Alexiou (@2019342a)
 " Description:  Z-01/DF
-" Version: 2.0.0
+" Version: 2.0.1
 " =============================================================================
 
 call plug#begin('~/.vim/plugged')
@@ -133,13 +133,13 @@ nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<leader>'<CR>
 
 "Python specific
-au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=99 expandtab autoindent fileformat=unix
+au BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=99 expandtab autoindent fileformat=unix
 
 "Javascript specific
- au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
 "Web specific
-au BufNewFile,BufRead *.html,*.csss set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=140 expandtab autoindent
+au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
 "Coffescript
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
