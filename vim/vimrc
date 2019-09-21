@@ -1,7 +1,7 @@
 " =============================================================================
 " Who: Theofilos Alexiou (@2019342a)
 " Description:  Z-01/DF
-" Version: 2.0.2
+" Version: 2.1.0
 " =============================================================================
 
 call plug#begin('~/.vim/plugged')
@@ -24,6 +24,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 Plug 'arcticicestudio/nord-vim'
 Plug 'liuchengxu/vim-which-key'
+Plug 'mhinz/vim-grepper'
 call plug#end()
 
 "ALE
@@ -136,13 +137,13 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<leader>'<CR>
 au BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=99 expandtab autoindent fileformat=unix
 
 "Javascript specific
-au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+au BufNewFile,BufRead *.js set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent foldlevel=99
 
 "Web specific
 au BufNewFile,BufRead *.html,*.csss setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=140 expandtab autoindent foldlevel=99
 
 "Coffescript
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab foldlevel=99
 
 "Tmux
 if empty('$TMUX')
